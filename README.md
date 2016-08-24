@@ -30,13 +30,13 @@ $ git clone https://github.com/rchereji/plot2DO.git
 > biocLite()
 > 
 > # Install the remaining Bioconductor packages:
-> biocLite(c("GenomicAlignments", "GenomicRanges"))
+> biocLite(c("GenomicAlignments", "GenomicRanges", "Rsamtools"))
 ```
 
 ## Workflow
 After the R packages have been installed, the utilities included with **bamR** can be executed from `bash`. Below is a workflow example.
 
-First you need to add the bamR folder to PATH. For example, you can copy the bamR folder to `/data/USER/scripts/bamR` and run in the terminal
+First you need to add the `bamR` folder to `PATH`. For example, you can copy the `bamR` folder to `/data/USER/scripts/bamR` and run in the terminal
 ```
 $ export PATH=$PATH:/data/USER/scripts/bamR
 ```
