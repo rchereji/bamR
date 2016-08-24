@@ -1,4 +1,4 @@
-## **bamR**: Utilities for work wih **bam** files in **R**
+## **bamR**: Utilities for working wih **bam** files in **R**
 
 
 **bamR** is an R package for generating two-dimensional heat maps useful for different genome-wide analyses.
