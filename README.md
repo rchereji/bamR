@@ -294,7 +294,7 @@ $ Rscript compute_average_occ_over_gene_bodies.R --files=Rpb3_AGH03_4.bam,Rpb3_A
 
 The results are put in the folder `Avg_Occ_over_gene_bodies`.
 
-To plot the heat map for Rpb3, use `plot_single_heatmap.R. To see all the possible options run
+To plot the heat map for Rpb3, use `plot_single_heatmap.R`. To see all the possible options run
 ```
 $ plot_single_heat_map.R --help
 Usage: plot_single_heat_map.R [options]
