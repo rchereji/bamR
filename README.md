@@ -305,7 +305,7 @@ Options:
 		Data file names; replicates separated by comma [e.g.: -c data_1.bam,data_2.bam,data_3.bam]
 
 	--sampleLabel=SAMPLELABEL
-		Sample label [default = Control]
+		Sample label [default = Sample?]
 
 	-t TYPE, --type=TYPE
 		Type of heat map; multiple types separated by commas only [options: occ, dyads; default = occ]
