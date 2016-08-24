@@ -20,7 +20,7 @@ $ git clone https://github.com/rchereji/plot2DO.git
 
 
 ## Dependencies
-**bamR** uses the following R packages: `caTools, colorRamps, GenomicAlignments, GenomicRanges, optparse`. To install these packages, open R and execute the following commands:
+**bamR** uses the following R packages: `caTools, colorRamps, GenomicAlignments, GenomicRanges, optparse, Rsamtools`. To install these packages, open R and execute the following commands:
 ```{r}
 > # Install caTools, colorRamps and optparse packages from CRAN:
 > install.packages(c("caTools", "colorRamps", "optparse"))
