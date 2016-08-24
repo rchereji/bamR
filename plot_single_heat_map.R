@@ -4,7 +4,7 @@ library("optparse")
 options = list(
   make_option(c("-f", "--files"), type="character", default=NULL,
               help="Data file names; replicates separated by comma [e.g.: -c data_1.bam,data_2.bam,data_3.bam]"),
-  make_option("--sampleLabel", type="character", default="Control",
+  make_option("--sampleLabel", type="character", default="Sample?",
               help="Sample label [default = %default]"),
   make_option(c("-t", "--type"), type="character", default="occ", 
               help="Type of heat map; multiple types separated by commas only [options: occ, dyads; default = %default]"),
