@@ -692,7 +692,7 @@ switch(selectedReference,
          axis(1, at=seq(-beforeRef, afterRef, by=100), labels=FALSE, lwd=1, lwd.ticks=1)
          par(tcl= -0.5)
          axis(1, at=seq(-beforeRef, afterRef, by=500), labels=TRUE, lwd=0, lwd.ticks=1, cex.axis=1.25)
-         title(main=sa. (bp)", ylab="", cex.main=1.4, cex.lab=1.4)
+         title(main=sample.name.title, xlab="Position relative to +1 nuc. (bp)", ylab="", cex.main=1.4, cex.lab=1.4)
          abline(v = 0, untf = FALSE, col = "white", lty = "longdash", lwd = 3)
          box()
          
@@ -703,4 +703,4 @@ switch(selectedReference,
          box()
          garbage = dev.off()
        }
-)                                                  
+)
