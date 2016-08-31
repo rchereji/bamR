@@ -288,8 +288,8 @@ Options:
 
 Examples:
 ```
-$ compute_average_occ_over_gene_bodies.R --files=Rpb3_AGH03_1.bam,Rpb3_AGH03_2.bam,Rpb3_AGH03_3.bam --sampleLabel=WT --presortedList=WTI_vs_WTU.50_300.top1000.csv
-$ Rscript compute_average_occ_over_gene_bodies.R --files=Rpb3_AGH03_4.bam,Rpb3_AGH03_5.bam,Rpb3_AGH03_6.bam --sampleLabel=WTI --presortedList=WTI_vs_WTU.50_300.top1000.csv
+$ compute_average_occ_over_gene_bodies.R --files=Rpb3_AGH03_1.bam,Rpb3_AGH03_2.bam,Rpb3_AGH03_3.bam --sampleLabel=WTU --presortedList=WTI_vs_WTU.50_300.top1000.csv
+$ compute_average_occ_over_gene_bodies.R --files=Rpb3_AGH03_4.bam,Rpb3_AGH03_5.bam,Rpb3_AGH03_6.bam --sampleLabel=WTI --presortedList=WTI_vs_WTU.50_300.top1000.csv
 ```
 
 The results are put in the folder `Avg_Occ_over_gene_bodies`.
