@@ -256,7 +256,7 @@ par(mar=c(5,5,2,2))
 image(c(1,2), 1:nrow(Smoothed_Avg_Occ), t(Smoothed_Avg_Occ), col=matlab.like(101), 
       ylim=c(nrow(Smoothed_Avg_Occ)+0.5,0.5), 
       breaks = c(seq(0, maxScale, length.out = 101), max(maxScale + 0.001, max(Smoothed_Avg_Occ))), 
-      axes=FALSE, xlab="", ylab="Average occupancy over gene bodies", useRaster=TRUE, line=1.5, cex.lab=1.4)
+      axes=FALSE, xlab="", ylab="Average occupancy over gene bodies", useRaster=TRUE, cex.lab=1.4)
 title(main=sample.name.title, cex.main=1.4)
 box()
 
