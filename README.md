@@ -246,6 +246,7 @@ $ cd ..
 ```
 Compare the top 1000 genes, using the extra argument `–presortedList=WTI_vs_WTU.50_300.top1000.csv`.
 Examples:
+
 1. Comparison WTI vs. WTU:
 ```
 $ compare_heat_maps_treatment_vs_control.R --controlFiles=AGH0220_1.bam,AGH0220_2.bam,AGH0220_3.bam --controlLabel=WTU --treatmentFiles=AGH0220_4.bam,AGH0220_5.bam,AGH0220_6.bam --treatmentLabel=WTI --presortedList=WTI_vs_WTU.50_300.top1000.csv
