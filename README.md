@@ -348,5 +348,87 @@ $ plot_single_heat_map.R --files=AGH01_WTU14.bam,AGH01_WTU25.bam --reference=Plu
 $ plot_single_heat_map.R --files=AGH01_WTI24.bam,AGH01_WTI44.bam --reference=Plus1 --sampleLabel=Nuc_WTI --minLength=120 --maxLength=160 --colorScale=2 --type=dyads 
 ```
 
+To plot a heat map where a set of specific sites are aligned, use `plot_binding_at_given_sites.R`. To see all the possible options run
+```
+$ Rscript plot_binding_at_given_sites.R --help
+Usage: plot_binding_at_given_sites.R [options]
+
+
+Options:
+        -f FILES, --files=FILES
+                Data file names; replicates separated by comma [e.g.: -c data_1.bam,data_2.bam,data_3.bam]
+
+        --sampleLabel=SAMPLELABEL
+                Sample label [default = Sample?]
+
+        -t TYPE, --type=TYPE
+                Type of heat map; multiple types separated by commas only [options: occ, dyads; default = occ]
+
+        -p PRESORTEDLIST, --presortedList=PRESORTEDLIST
+                Presorted list of sites (csv file)
+
+        -n LISTNAME, --listName=LISTNAME
+                Name for the list of sites (e.g. Gcn4_binding_sites, AluI_cleavage_sites, etc.) [default = sites]
+
+        -l MINLENGTH, --minLength=MINLENGTH
+                The smallest DNA fragment to be considered [default = 50]
+
+        -L MAXLENGTH, --maxLength=MAXLENGTH
+                The largest DNA fragment to be considered [default = 300]
+
+        -u UPSTREAMPLOTWINDOW, --upstreamPlotWindow=UPSTREAMPLOTWINDOW
+                Length of the upstream region that will be plotted [default = 1000]
+
+        -d DOWNSTREAMPLOTWINDOW, --downstreamPlotWindow=DOWNSTREAMPLOTWINDOW
+                Length of the downstream region that will be plotted [default = 1000]
+
+        -s GSIGMA, --Gsigma=GSIGMA
+                Gaussian sigma used for smoothing the heat map [default = 0]
+
+        --colorScale=COLORSCALE
+                Maximum color scale in single condition heat maps [default = 2]
+
+        -h, --help
+                Show this help message and exit
+```
+
+Examples:
+```
+$ Rscript plot_binding_at_given_sites.R -f AGH24_4.rmdup.bam --sampleLabel=Gcn4 -p All_Gcn4_peaks.csv -n Gcn4_BS --colorScale=5
+$ Rscript plot_binding_at_given_sites.R -f AGH24_4.rmdup.bam --sampleLabel=Gcn4 -p All_Gcn4_peaks.csv -n Gcn4_BS --Gsigma=3 --colorScale=5
+```
+The results are put in the folders `Heatmap_Occ, Heatmap_Dyads, Avg_Occ, Avg_Dyads`. The folder `Avg_Occ` will contain the average binding profile, by averaging the profiles corresponding to all sites. It will also contain the average binding at each site in the region [-100:100], e.g. `Avg_Occ_per_site.Gcn4_BS.Gcn4.50_300.csv`.
+
+To sort the sites according to the scores from `Avg_Occ/Avg_Occ_per_site.Gcn4_BS.Gcn4.50_300.csv`, use the script 
+```
+Rscript sort_sites_by_given_scores.R -a All_Gcn4_peaks.csv -s Avg_Occ/Avg_Occ_per_site.Gcn4_BS.Gcn4.50_300.csv -o decreasing 
+```
+This will create the file `All_Gcn4_peaks.decreasing.csv` that will contain the list of sites sorted by the average binding from `AGH24_4.rmdup.bam`. For a full list of arguments for the sorting function, run:
+```
+$ Rscript sort_sites_by_given_scores.R --help
+Usage: sort_sites_by_given_scores.R [options]
+
+
+Options:
+        -a ANNOTFILENAME, --annotFilename=ANNOTFILENAME
+                Annotations of the sites to be aligned (csv format)
+
+        -s SORTBYFILENAME, --sortByFilename=SORTBYFILENAME
+                Scores for the sites to be aligned (csv format)
+
+        -o ORDER, --order=ORDER
+                sorting order [options: increasing, decreasing; default = decreasing]
+
+        -h, --help
+                Show this help message and exit
+```
+Once the file `All_Gcn4_peaks.decreasing.csv` was created, we can use this file to re-align and sort other data sets according to this set of aligned sites. Examples:
+```
+$ Rscript plot_binding_at_given_sites.R -f AGH24_4.rmdup.bam --sampleLabel=Gcn4 -p All_Gcn4_peaks.decreasing.csv -n Gcn4_BS --colorScale=5
+$ Rscript plot_binding_at_given_sites.R -f AGH24_1.rmdup.bam --sampleLabel=Gcn4_null -p All_Gcn4_peaks.decreasing.csv -n Gcn4_BS --colorScale=5
+```
+Like this, one can sort a data set and use the same order of the sites to investigate the corresponding binding from other data sets.
+
+
 ## License
 **bamR** is freely available under the MIT License.
