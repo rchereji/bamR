@@ -348,7 +348,7 @@ $ plot_single_heat_map.R --files=AGH01_WTU14.bam,AGH01_WTU25.bam --reference=Plu
 $ plot_single_heat_map.R --files=AGH01_WTI24.bam,AGH01_WTI44.bam --reference=Plus1 --sampleLabel=Nuc_WTI --minLength=120 --maxLength=160 --colorScale=2 --type=dyads 
 ```
 
-To plot a heat map where a set of specific sites are aligned, use `plot_binding_at_given_sites.R`. To see all the possible options run
+To plot a heat map where a set of specific sites are aligned, use `plot_binding_at_given_sites.R`. To see all the possible options run:
 ```
 $ Rscript plot_binding_at_given_sites.R --help
 Usage: plot_binding_at_given_sites.R [options]
@@ -397,7 +397,7 @@ Examples:
 $ Rscript plot_binding_at_given_sites.R -f AGH24_4.rmdup.bam --sampleLabel=Gcn4 -p All_Gcn4_peaks.csv -n Gcn4_BS --colorScale=5
 $ Rscript plot_binding_at_given_sites.R -f AGH24_4.rmdup.bam --sampleLabel=Gcn4 -p All_Gcn4_peaks.csv -n Gcn4_BS --Gsigma=3 --colorScale=5
 ```
-The results are put in the folders `Heatmap_Occ, Heatmap_Dyads, Avg_Occ, Avg_Dyads`. The folder `Avg_Occ` will contain the average binding profile, by averaging the profiles corresponding to all sites. It will also contain the average binding at each site in the region [-100:100], e.g. `Avg_Occ_per_site.Gcn4_BS.Gcn4.50_300.csv`.
+The results are put in the folders `Heatmap_Occ, Heatmap_Dyads, Avg_Occ, Avg_Dyads`. The folder `Avg_Occ` will contain the average binding profile, by averaging the profiles corresponding to all sites. It will also contain the average binding at each site in the region `[-100,100]`, e.g. `Avg_Occ_per_site.Gcn4_BS.Gcn4.50_300.csv`.
 
 To sort the sites according to the scores from `Avg_Occ/Avg_Occ_per_site.Gcn4_BS.Gcn4.50_300.csv`, use the script 
 ```
