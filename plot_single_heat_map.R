@@ -364,13 +364,13 @@ if ("OCC" %in% plot.type){
   # Save the aligned occupancy
   switch(selectedReference, 
          TSS={
-           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Heatmap_Occ/Aligned_Occ_TSS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Heatmap_Occ/Aligned_Occ_TSS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
          },
          TTS={
-           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Heatmap_Occ/Aligned_Occ_TTS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Heatmap_Occ/Aligned_Occ_TTS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
          },
          Plus1={
-           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Heatmap_Occ/Aligned_Occ_Plus1.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Heatmap_Occ/Aligned_Occ_Plus1.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
          }
   )
   
@@ -499,13 +499,13 @@ if ("DYADS" %in% plot.type){
   # Save the aligned dyads
   switch(selectedReference, 
          TSS={
-           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Heatmap_Dyads/Aligned_Dyads_TSS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Heatmap_Dyads/Aligned_Dyads_TSS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
          },
          TTS={
-           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Heatmap_Dyads/Aligned_Dyads_TTS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Heatmap_Dyads/Aligned_Dyads_TTS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
          },
          Plus1={
-           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Heatmap_Dyads/Aligned_Dyads_Plus1.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(AlignedProfile, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Heatmap_Dyads/Aligned_Dyads_Plus1.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
          }
   )
   

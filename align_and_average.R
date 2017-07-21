@@ -298,17 +298,17 @@ if ("OCC" %in% plot.type){
   # Save the average occupancy
   switch(selectedReference, 
          TSS={
-           save(Avg_Occ, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Avg_Occ/Avg_Occ_TSS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(Avg_Occ, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Avg_Occ/Avg_Occ_TSS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
            write.csv(data.frame(Position=-beforeRef:afterRef, Average=Avg_Occ), 
                      file=paste("Avg_Occ/Avg_Occ_TSS.", sample.name, ".", Lmin, "_", Lmax, ".csv", sep=""), row.names=FALSE)
          },
          TTS={
-           save(Avg_Occ, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Avg_Occ/Avg_Occ_TTS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(Avg_Occ, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Avg_Occ/Avg_Occ_TTS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
            write.csv(data.frame(Position=-beforeRef:afterRef, Average=Avg_Occ), 
                      file=paste("Avg_Occ/Avg_Occ_TTS.", sample.name, ".", Lmin, "_", Lmax, ".csv", sep=""), row.names=FALSE)
          },
          Plus1={
-           save(Avg_Occ, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Avg_Occ/Avg_Occ_Plus1.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(Avg_Occ, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Avg_Occ/Avg_Occ_Plus1.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
            write.csv(data.frame(Position=-beforeRef:afterRef, Average=Avg_Occ), 
                      file=paste("Avg_Occ/Avg_Occ_Plus1.", sample.name, ".", Lmin, "_", Lmax, ".csv", sep=""), row.names=FALSE)
          }
@@ -409,17 +409,17 @@ if ("DYADS" %in% plot.type){
   # Save the average dyads
   switch(selectedReference, 
          TSS={
-           save(Avg_Dyads, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Avg_Dyads/Avg_Dyads_TSS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(Avg_Dyads, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Avg_Dyads/Avg_Dyads_TSS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
            write.csv(data.frame(Position=-beforeRef:afterRef, Average=Avg_Dyads), 
                      file=paste("Avg_Dyads/Avg_Dyads_TSS.", sample.name, ".", Lmin, "_", Lmax, ".csv", sep=""), row.names=FALSE)
          },
          TTS={
-           save(Avg_Dyads, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Avg_Dyads/Avg_Dyads_TTS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(Avg_Dyads, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Avg_Dyads/Avg_Dyads_TTS.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
            write.csv(data.frame(Position=-beforeRef:afterRef, Average=Avg_Dyads), 
                      file=paste("Avg_Dyads/Avg_Dyads_TTS.", sample.name, ".", Lmin, "_", Lmax, ".csv", sep=""), row.names=FALSE)
          },
          Plus1={
-           save(Avg_Dyads, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, file=paste("Avg_Dyads/Avg_Dyads_Plus1.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+           save(Avg_Dyads, Lmin, Lmax, beforeRef, afterRef, TotalNoReads, sample.name, file=paste("Avg_Dyads/Avg_Dyads_Plus1.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
            write.csv(data.frame(Position=-beforeRef:afterRef, Average=Avg_Dyads), 
                      file=paste("Avg_Dyads/Avg_Dyads_Plus1.", sample.name, ".", Lmin, "_", Lmax, ".csv", sep=""), row.names=FALSE)
          }
