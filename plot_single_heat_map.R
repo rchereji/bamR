@@ -21,7 +21,9 @@ options = list(
   make_option(c("-d", "--downstreamPlotWindow"), type="integer", default=1000,
               help="Length of the downstream region that will be plotted [default = %default]"),
   make_option("--colorScale", type="double", default=2,
-              help="Maximum color scale in single condition heat maps [default = %default]")
+              help="Maximum color scale in single condition heat maps [default = %default]"),
+  make_option("--annotationsFile", type="character", default="sacCer3_annotations.csv",
+              help="Filename (csv format) containing the annotations [default = %default]")
 )
 
 opt_parser = OptionParser(option_list=options)
@@ -148,7 +150,7 @@ image.scale <- function(z, zlim, col = heat.colors(12),
 
 
 # Load annotations
-sacCer3transcripts = read.csv("sacCer3_annotations.csv", header=TRUE, stringsAsFactors=FALSE)
+sacCer3transcripts = read.csv(opt$annotationsFile, header=TRUE, stringsAsFactors=FALSE)
 rownames(sacCer3transcripts) = sacCer3transcripts$ORF
 
 if (! is.null(opt$presortedList)){

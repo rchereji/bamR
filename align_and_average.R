@@ -19,7 +19,9 @@ options = list(
   make_option(c("-d", "--downstreamPlotWindow"), type="integer", default=1000, 
               help="Length of the downstream region that will be plotted [default = %default]"),
   make_option(c("-p", "--presortedList"), type="character", default=NULL,
-              help="Presorted list of genes (csv file)")
+              help="Presorted list of genes (csv file)"),
+  make_option("--annotationsFile", type="character", default="sacCer3_annotations.csv",
+              help="Filename (csv format) containing the annotations [default = %default]")
 ) 
 
 opt_parser = OptionParser(option_list=options)
@@ -145,7 +147,7 @@ AlignRegions = function(Profile, ReferenceGRanges)
 
 
 # Load annotations
-sacCer3transcripts = read.csv("sacCer3_annotations.csv", header=TRUE, stringsAsFactors=FALSE)
+sacCer3transcripts = read.csv(opt$annotationsFile, header=TRUE, stringsAsFactors=FALSE)
 rownames(sacCer3transcripts) = sacCer3transcripts$ORF
 
 if (! is.null(opt$presortedList)){
