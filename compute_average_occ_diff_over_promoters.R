@@ -16,8 +16,8 @@ options = list(
               help="The largest DNA fragment to be considered [default = %default]"),
   make_option(c("-p", "--presortedList"), type="character", default=NULL,
               help="Presorted list of genes (csv file)"),
-  make_option("--colorScaleRatio", type="double", default=5,
-              help="Maximum color scale in ratio heat map [default = %default]"),
+  make_option("--colorScaleDiff", type="double", default=1,
+              help="Maximum color scale in difference heat map [default = %default]"),
   make_option("--annotationsFile", type="character", default="sacCer3_annotations.csv",
               help="Filename (csv format) containing the annotations [default = %default]")
 ) 
@@ -193,7 +193,7 @@ Occ_treatment = coverage(reads, weight=coverageWeight)
 # Output:
 #   AvgOcc            - a vector with the average occupancy for each gene body
 
-Average_Occ_over_gene_body = function(Profile, ReferenceGRanges)
+Average_Occ_over_promoter = function(Profile, ReferenceGRanges)
 {
   # Create Views with all the ReferenceGRanges
   chrName = unique(as.character(seqnames(ReferenceGRanges)))
@@ -224,21 +224,29 @@ if (! is.null(opt$presortedList)){
   sacCer3transcripts = sacCer3transcripts[Indices,]
 }
 
-ORF_Start = sacCer3transcripts$ORF_Start
-ORF_End = sacCer3transcripts$ORF_End
+Minus1 = sacCer3transcripts$Minus1
+Plus1 = sacCer3transcripts$Plus1
 ReferenceChr = sacCer3transcripts$Chr
 RefStrand = sacCer3transcripts$Strand
 ORF = sacCer3transcripts$ORF
 
 Watson = (RefStrand == 1)
-leftEdge = ORF_Start
-rightEdge = ORF_End
+leftEdge = Minus1 - 73
+rightEdge = Plus1 + 73
 
-leftEdgeCrick = ORF_End
-rightEdgeCrick = ORF_Start
+leftEdgeCrick = Plus1 - 73
+rightEdgeCrick = Minus1 + 73
 
 leftEdge[!Watson] = leftEdgeCrick[!Watson]
 rightEdge[!Watson] = rightEdgeCrick[!Watson]
+
+# Remove genes without +1/-1 annotations
+available_annot = !is.nan(leftEdge)
+ReferenceChr = ReferenceChr[available_annot]
+leftEdge = leftEdge[available_annot]
+rightEdge = rightEdge[available_annot]
+RefStrand = RefStrand[available_annot]
+ORF = ORF[available_annot]
 
 ReferenceGRanges = GRanges(seqnames=ReferenceChr,
                            IRanges(start=leftEdge,
@@ -262,20 +270,20 @@ ORF = ORF[idxToKeep]
 ##############################
 ## Compute average occupancy #
 ##############################
-dir.create("Avg_Occ_over_gene_bodies", showWarnings = FALSE, recursive = TRUE)
+dir.create("Avg_Occ_over_promoters", showWarnings = FALSE, recursive = TRUE)
 
 # Compute average occupancy
-Avg_Occ_control = Average_Occ_over_gene_body(Occ_control, ReferenceGRanges)
+Avg_Occ_control = Average_Occ_over_promoter(Occ_control, ReferenceGRanges)
 Avg_Occ_control[Avg_Occ_control < 0] = 0 # eliminate rounding errors for very small numbers
 
-Avg_Occ_treatment = Average_Occ_over_gene_body(Occ_treatment, ReferenceGRanges)
+Avg_Occ_treatment = Average_Occ_over_promoter(Occ_treatment, ReferenceGRanges)
 Avg_Occ_treatment[Avg_Occ_treatment < 0] = 0 # eliminate rounding errors for very small numbers
 
-Avg_Occ_Ratio = Avg_Occ_treatment / Avg_Occ_control
-Avg_Occ = Avg_Occ_Ratio
+Avg_Occ_diff = Avg_Occ_treatment - Avg_Occ_control
+Avg_Occ = Avg_Occ_diff
 
 
-sample.name.title = paste(treatmentLabel, " / ", controlLabel, sep="")
+sample.name.title = paste(treatmentLabel, "-", controlLabel, sep="")
 if (! is.null(opt$presortedList)){
   sample.name = paste(treatmentLabel, "-", controlLabel, ".presorted", sep="")
 } else {
@@ -284,9 +292,9 @@ if (! is.null(opt$presortedList)){
 
 
 # Save the average occupancy
-save(Avg_Occ_Ratio, Lmin, Lmax, file=paste("Avg_Occ_over_gene_bodies/Avg_Occ_Ratio_over_gene_bodies.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
-write.csv(data.frame(Gene=names(Avg_Occ_Ratio), Average_Occ_Ratio=Avg_Occ_Ratio), 
-          file=paste("Avg_Occ_over_gene_bodies/Avg_Occ_Ratio_over_gene_bodies.", sample.name, ".", Lmin, "_", Lmax, ".csv", sep=""), row.names=FALSE)
+save(Avg_Occ_diff, Lmin, Lmax, file=paste("Avg_Occ_over_promoters/Avg_Occ_diff_over_promoters.", sample.name, ".", Lmin, "_", Lmax, ".RData", sep=""))
+write.csv(data.frame(Gene=names(Avg_Occ_diff), Average_Occ_diff=Avg_Occ_diff), 
+          file=paste("Avg_Occ_over_promoters/Avg_Occ_diff_over_promoters.", sample.name, ".", Lmin, "_", Lmax, ".csv", sep=""), row.names=FALSE)
 
 
 ##############################################
@@ -329,20 +337,20 @@ image.scale <- function(z, zlim, col = heat.colors(12),
 
 
 Smoothed_Avg_Occ = cbind(runmean(Avg_Occ, 21, alg="C", endrule="mean"), runmean(Avg_Occ, 21, alg="C", endrule="mean"))
-maxScaleRatio = opt$colorScaleRatio
-pdf(paste("Avg_Occ_over_gene_bodies/Avg_Occ_Ratio_over_gene_bodies.", sample.name, ".", Lmin, "_", Lmax, ".pdf", sep=""), w=3, h=8)
+maxScaleDiff = opt$colorScaleDiff
+pdf(paste("Avg_Occ_over_promoters/Avg_Occ_diff_over_promoters.", sample.name, ".", Lmin, "_", Lmax, ".pdf", sep=""), w=3, h=8)
 layout(matrix(c(1,2), ncol=2), widths=c(3,2))
 par(mar=c(5,5,2,2))
 image(c(1,2), 1:nrow(Smoothed_Avg_Occ), t(Smoothed_Avg_Occ), col=matlab.like(102), 
       ylim=c(nrow(Smoothed_Avg_Occ)+0.5,0.5), 
-      breaks = c(min(-0.001, min(Smoothed_Avg_Occ)), seq(0, maxScaleRatio, length.out = 101), max(0.001+maxScaleRatio,max(Smoothed_Avg_Occ))), 
-      axes=FALSE, xlab="", ylab="Average occupancy ratio over gene bodies", useRaster=TRUE, cex.lab=1.4)
+      breaks = c(min(-0.001-maxScaleDiff, min(Smoothed_Avg_Occ)), seq(-maxScaleDiff, maxScaleDiff, length.out = 101), max(0.001+maxScaleDiff,max(Smoothed_Avg_Occ))), 
+      axes=FALSE, xlab="", ylab="Average occupancy difference over promoters", useRaster=TRUE, cex.lab=1.4)
 title(main=sample.name.title, cex.main=1.4)
 box()
 
 #Add scale
 par(mar=c(25,0,2,4))
-image.scale(col = matlab.like(100), breaks = seq(0, maxScaleRatio, length.out = 101), horiz=FALSE, xlab="", yaxt="n")
-axis(4, at=seq(0, maxScaleRatio, length.out = 5), las=2)
+image.scale(col = matlab.like(100), breaks = seq(-maxScaleDiff, maxScaleDiff, length.out = 101), horiz=FALSE, xlab="", yaxt="n")
+axis(4, at=seq(-maxScaleDiff, maxScaleDiff, length.out = 5), las=2)
 box()
 garbage = dev.off()

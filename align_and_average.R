@@ -128,11 +128,11 @@ AlignRegions = function(Profile, ReferenceGRanges)
 {
   # Create Views with all the ReferenceGRanges
   chrName = unique(as.character(seqnames(ReferenceGRanges)))
-  myViews = Views(Profile[chrName], as(ReferenceGRanges, "RangesList")[chrName])
+  myViews = Views(Profile[chrName], as(ReferenceGRanges, "IntegerRangesList")[chrName])
   AlignedProfilesList = lapply(myViews, function(gr) t(viewApply(gr, as.vector)))
   AlignedProfiles = do.call("rbind", AlignedProfilesList)
   
-  ## Get the index of ReferenceGRanges, which were reorganized by as(ReferenceGRanges, "RangesList")
+  ## Get the index of ReferenceGRanges, which were reorganized by as(ReferenceGRanges, "IntegerRangesList")
   listInd = split(1:length(ReferenceGRanges), as.factor(seqnames(ReferenceGRanges)))
   idx = do.call("c", listInd)
   
