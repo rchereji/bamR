@@ -112,11 +112,11 @@ Average_Occ_over_gene_body = function(Profile, ReferenceGRanges)
 {
   # Create Views with all the ReferenceGRanges
   chrName = unique(as.character(seqnames(ReferenceGRanges)))
-  myViews = Views(Profile[chrName], as(ReferenceGRanges, "IntegerRangesList")[chrName])
+  myViews = Views(Profile[chrName], as(ReferenceGRanges, "RangesList")[chrName])
   AvgProfileList = viewMeans(myViews)
   AvgProfile = unlist(AvgProfileList)
   
-  ## Get the index of ReferenceGRanges, which were reorganized by as(ReferenceGRanges, "IntegerRangesList")
+  ## Get the index of ReferenceGRanges, which were reorganized by as(ReferenceGRanges, "RangesList")
   listInd = split(1:length(ReferenceGRanges), as.factor(seqnames(ReferenceGRanges)))
   idx = do.call("c", listInd)
   
